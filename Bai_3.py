@@ -54,3 +54,41 @@ def create_registrations(registration: RegistrationsCreate):
     }
     registrations.append(new_registration)
     return {"message": "Regist successfully", "data": new_registration}
+
+
+# 1.Input:
+# API: POST /registrations
+# Body gửi lên:
+# {
+#     "student_id": 1,
+#     "course_id": 2
+# }
+# Trong FastAPI:
+# class RegistrationsCreate(BaseModel):
+#     student_id: int
+#     course_id: int
+
+# 2. Output khi thành công
+# Tạo một bản ghi đăng ký mới.
+# Thêm vào danh sách registrations.
+# Trả về HTTP 201 Created.
+
+# 3. Output thất bại:
+# Đăng ký trùng: 409 Conflict
+# {
+#     "detail": "Student already registered this course"
+# }
+
+# Khóa học đã đầy: 507 Insufficient Storage
+# {
+#     "detail": "Course is full"
+# }
+
+
+# Đề xuất giải pháp
+# Nhận dữ liệu student_id và course_id.
+# Kiểm tra học viên đã đăng ký khóa học này chưa.
+# Đếm số lượng đăng ký của khóa học.
+# So sánh với capacity.
+# Nếu chưa đầy thì tạo đăng ký mới.
+# Trả về HTTP 201 Created.
